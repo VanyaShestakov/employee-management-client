@@ -2,6 +2,7 @@ package com.ivanshestakov;
 
 import com.ivanshestakov.client.EmployeeClient;
 import com.ivanshestakov.configuration.Config;
+import com.ivanshestakov.entity.BasicAuthCredentials;
 import com.ivanshestakov.entity.ExceptionInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -19,14 +20,19 @@ public class App {
     public static void main(String[] args) {
         final var context = new AnnotationConfigApplicationContext(Config.class);
         final var client = context.getBean(EmployeeClient.class);
-        final var response = client.get("ffd");
+        final var response =
+                client.delete("83490f09-a187-4f44-9df2-e1887000fb5d",
+                        BasicAuthCredentials.builder()
+                                .password("1234")
+                                .username("vanechka")
+                                .build());
 
-        if (response.getStatusCode().value() != 200) {
+        if (response.getStatusCode().value() != 204) {
             final var exceptionInfo = toObject(response.getBody(), ExceptionInfo.class);
             System.out.println(exceptionInfo);
         }
 
-        log.info(client.get().getBody());
+        log.info(response.getStatusCode().toString());
     }
 
     private static void displayMenu() {
