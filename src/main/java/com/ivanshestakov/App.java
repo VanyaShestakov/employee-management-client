@@ -7,6 +7,7 @@ import com.ivanshestakov.entity.ExceptionInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -18,14 +19,13 @@ public class App {
     private final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        final var map = new HashMap<String, String>();
+        map.put(null, "ddd");
+        System.out.println(map.get(null));
         final var context = new AnnotationConfigApplicationContext(Config.class);
         final var client = context.getBean(EmployeeClient.class);
         final var response =
-                client.delete("83490f09-a187-4f44-9df2-e1887000fb5d",
-                        BasicAuthCredentials.builder()
-                                .password("1234")
-                                .username("vanechka")
-                                .build());
+                client.delete("83490f09-a187-4f44-9df2-e1887000fb5d");
 
         if (response.getStatusCode().value() != 204) {
             final var exceptionInfo = toObject(response.getBody(), ExceptionInfo.class);

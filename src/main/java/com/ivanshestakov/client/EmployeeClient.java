@@ -1,5 +1,6 @@
 package com.ivanshestakov.client;
 
+import com.ivanshestakov.entity.BaseEntity;
 import com.ivanshestakov.entity.BasicAuthCredentials;
 import com.ivanshestakov.entity.Employee;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,9 @@ public interface EmployeeClient {
 
     ResponseEntity<String> get(String id);
 
-    ResponseEntity<String> put(Employee employee);
+    ResponseEntity<String> put(Employee entity);
 
-    ResponseEntity<String> put(Employee employee, BasicAuthCredentials credentials);
+    ResponseEntity<String> put(Employee entity, BasicAuthCredentials credentials);
 
     ResponseEntity<String> delete(String id);
 
